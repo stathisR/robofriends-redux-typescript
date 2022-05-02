@@ -5,10 +5,13 @@ import searchReducer from '../features/search/searchSlice';
 
 const logger = createLogger();
 
-export default configureStore({
+export const store = configureStore({
   reducer: {
     robots: robotsReducer,
     search: searchReducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger)
 });
+
+export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;

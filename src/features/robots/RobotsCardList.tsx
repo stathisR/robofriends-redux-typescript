@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+import {useState, useEffect, ReactElement} from "react";
+import { useAppSelector, useAppDispatch } from "../../app/appHooks";
 import RobotsCard from "./RobotsCard";
 import { selectSearchField } from "../search/searchSlice";
 import { selectRobots, fetchRobots } from "./robotsSlice";
 
 const RobotsCardList = () => {
-  const dispatch = useDispatch();
-  const robots = useSelector(selectRobots);
-  const robotsFetchStatus = useSelector((state) => state.robots.status);
-  const robotsFetchError = useSelector((state) => state.robots.error);
-  const searchField = useSelector(selectSearchField);
+  const dispatch = useAppDispatch();
+  const robots = useAppSelector(selectRobots);
+  const robotsFetchStatus = useAppSelector((state) => state.robots.status);
+  const robotsFetchError = useAppSelector((state) => state.robots.error);
+  const searchField = useAppSelector(selectSearchField);
   const [robotsFiltered, setRobotsFiltered] = useState([]);
 
   useEffect(() => {
@@ -24,7 +25,7 @@ const RobotsCardList = () => {
     }
   }, [searchField, robots]);
 
-  let listContent = '';
+  let listContent: ReactElement | ReactElement[];
   switch (robotsFetchStatus) {
     case 'loading':
       listContent = <h2>Loading...</h2>

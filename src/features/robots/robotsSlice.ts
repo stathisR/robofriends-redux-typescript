@@ -1,10 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const initialState = {
+interface IInitialState {
+  robots: never[]
+  status: string
+  error: string | undefined
+}
+
+const initialState: IInitialState = {
   robots: [],
   status: 'idle',
-  error: null
+  error: undefined
 };
 
 export const fetchRobots = createAsyncThunk('robots/fetchRobots', async () => {
